@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/LL_toolsDialog"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="horizontal"
+    android:background="#00000000"
+
+    >
+
+
+
+    <LinearLayout
+        android:background="@drawable/toolsbackgroud"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true"
+
+        >
+
+
+
+        <!--相机处理-->
+        <RelativeLayout
+            android:layout_gravity="center"
+            android:id="@+id/bt_takePhoto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            >
+            <ImageView
+                android:id="@+id/toolsCamera"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/camera"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="相机"
+                android:textColor="@android:color/white"
+                android:layout_below="@+id/toolsCamera"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:textSize="20sp"
+                />
+
+
+        </RelativeLayout>
+
+        <!--相册处理-->
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/rl_photoGraph"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            >
+            <ImageView
+                android:id="@+id/toolsPhoto"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/picture"
+                />
+            <TextView
+                android:textColor="@android:color/white"
+                android:layout_below="@+id/toolsPhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="相册"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:textSize="20sp"
+                />
+
+
+        </RelativeLayout>
+
+
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

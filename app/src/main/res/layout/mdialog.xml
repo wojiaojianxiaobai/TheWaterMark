@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+
+    android:background="@drawable/mdialog_background"
+    >
+    <!--获取GPS信息-->
+
+
+    <!--标题-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="设置水印信息"
+        android:textColor="@android:color/black"
+        android:textSize="25sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        />
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/holo_blue_bright"
+        />
+
+    <TextView
+
+        android:id="@+id/tv_address"
+        android:textColor="@android:color/background_dark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+        <Button
+
+            android:id="@+id/bt_getGPS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="获取GPS信息"
+            />
+
+
+
+        <!--经纬度-->
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            >
+
+            <!--纬度-->
+            <TextView
+                android:id="@+id/tv_showGPS_x"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:textColor="@android:color/black"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="请获取你的GPS信息"
+
+                />
+            <!--纬度-->
+            <TextView
+                android:id="@+id/tv_showGPS_y"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textColor="@android:color/black"
+                android:gravity="center_vertical"
+                />
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+
+    <!--获取IMEI信息-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/bt_getIMEI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="获取IMEI信息"
+            />
+        <TextView
+            android:id="@+id/tv_showIMEI"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:text="请获取您的IMEI信息"
+            />
+    </LinearLayout>
+
+
+
+    <!--获取IMSI信息-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/bt_getIMSI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="获取IMSI信息"
+            />
+        <TextView
+            android:id="@+id/tv_showIMSI"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:text="请获取您的IMSI信息"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="自定义："
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:layout_marginLeft="20dp"
+            />
+
+        <EditText
+            android:id="@+id/et_my_message"
+            android:layout_marginLeft="5dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:hint="签名/信息"
+            android:textColorHint="#666666"
+
+            />
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <Button
+            android:id="@+id/bt_ok"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="嵌入水印"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <Button
+            android:id="@+id/bt_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="返回"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="10dp"
+            />
+
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#f2f2f5"
+    >
+
+
+    <!--个人信息栏-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:orientation="vertical"
+        android:background="@drawable/my_info_background"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerVertical="true"
+
+            >
+            <com.xiaobai.thewatermark.Utils.CircleImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/default_icon"
+                android:layout_marginLeft="15dp"
+                />
+            <TextView
+                android:id="@+id/info_name"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="未知用户"
+                android:textSize="25sp"
+                android:textColor="@android:color/white"
+                />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <!--菜单栏-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="12"
+        android:orientation="vertical"
+        >
+
+
+        <!--我的相册-->
+        <LinearLayout
+            android:id="@+id/ll_my_album"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/left_item_select"
+            >
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="12dp"
+                android:src="@drawable/my_photo"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="我的相册"
+                android:textColor="@android:color/black"
+                android:textSize="25dp"
+                android:layout_marginTop="10dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/remakePassword"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/left_item_select"
+            >
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="12dp"
+                android:src="@drawable/remake_password"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="修改密码"
+                android:textColor="@android:color/black"
+                android:textSize="25dp"
+                android:layout_marginTop="10dp"
+                />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_SwitchUser"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/left_item_select"
+            >
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="12dp"
+                android:src="@drawable/switch_user"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="切换用户"
+                android:textColor="@android:color/black"
+                android:textSize="25dp"
+                android:layout_marginTop="10dp"
+                />
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+    <!--工具栏-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        >
+
+
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>

@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+
+    android:background="@android:color/white"
+    tools:context="com.xiaobai.thewatermark.Activit.MainActivity"
+
+    >
+
+
+    <com.xiaobai.thewatermark.Utils.LeftHold
+        android:id="@+id/id_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <include layout="@layout/left_hold"/>
+
+            <RelativeLayout android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:id="@+id/id_main_menu"
+                >
+                <!--标题栏-->
+                <RelativeLayout
+
+                    android:id="@+id/tv_tittle"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/main_bg">
+
+
+                    <!--自定义圆角裁剪-->
+                    <!--用户头像-->
+                    <com.xiaobai.thewatermark.Utils.CircleImageView
+                        android:id="@+id/my_icon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_centerInParent="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/default_icon"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="18dp"
+                        />
+
+                </RelativeLayout>
+
+
+
+
+
+                <ImageView
+                    android:layout_marginTop="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:src="@drawable/tittle"
+                    android:layout_alignParentTop="true"
+                    />
+
+                <!--保存按钮-->
+                <LinearLayout
+                    android:layout_width="82dp"
+                    android:layout_height="25dp"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/rl_savePhoto"
+                    android:layout_marginTop="20dp"
+                    android:layout_alignParentRight="true"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:background="@drawable/save_select"
+                        android:gravity="left"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="2dp"
+
+
+                        />
+
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="20dp"
+                        android:text="保 存"
+                        android:textSize="15sp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginRight="20dp"
+                        android:background="#00000000"
+                        android:textColor="#707070"
+                        android:gravity="center"
+                        />
+
+
+
+                </LinearLayout>
+
+
+                <!--查看原图-->
+
+                <LinearLayout
+                    android:layout_width="60dp"
+                    android:layout_height="22dp"
+                    android:id="@+id/rl_getstartPhoto"
+                    android:layout_below="@id/rl_savePhoto"
+                    android:layout_alignParentRight="true"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center"
+                    android:background="@drawable/save_background"
+                    >
+
+                    <ImageView
+                        android:layout_width="13dp"
+                        android:layout_height="13dp"
+                        android:layout_marginLeft="23dp"
+
+                        android:layout_marginRight="1dp"
+
+                        android:src="@drawable/startphoto_select"
+                        android:gravity="left"
+
+
+                        />
+
+                    <TextView
+                        android:layout_width="35dp"
+                        android:layout_height="20dp"
+                        android:text="原 图"
+                        android:textSize="13sp"
+                        android:layout_marginRight="20dp"
+                        android:background="#00000000"
+                        android:textColor="#707070"
+                        android:gravity="center"
+                        />
+
+                </LinearLayout>
+
+
+
+
+
+
+                <!--图片预览-->
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_below="@+id/rl_savePhoto"
+                    android:layout_above="@+id/ll_tools"
+
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="46dp"
+                    android:layout_marginBottom="20dp"
+                    >
+
+                    <!--背景框-->
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/imageviewbackground"
+                        />
+
+                    <!--提示空白图片-->
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/null_image_tip"
+                        android:background="@drawable/imageviewbackgroud"
+                        />
+                    <!--单图片时的显示窗口-->
+                    <ImageView
+                        android:background="@drawable/imageviewbackgroud"
+                        android:id="@+id/imageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        />
+
+
+                    <GridView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/gridView"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"
+                        >
+
+                    </GridView>
+
+                </RelativeLayout>
+
+
+
+                <!--底部导航栏-->
+                <LinearLayout
+                    android:id="@+id/ll_tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:background="#20202020"
+                    >
+                    <!--水印嵌入-->
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/rl_insertWaterMark"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:background="@drawable/bottom_button_select"
+                        android:clickable="true"
+                        >
+                        <ImageView
+                            android:id="@+id/waterMakericon"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/watermaker_select"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            />
+                        <TextView
+
+                            android:layout_below="@id/waterMakericon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="嵌入水印"
+                            android:textColor="#707070"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="5dp"
+                            android:textSize="12sp"
+                            />
+
+
+                    </RelativeLayout>
+
+
+                    <!--水印提取-->
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/rl_getWaterMark"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:layout_marginRight="30dp"
+                        android:background="@drawable/bottom_button_select"
+                        android:clickable="true"
+                        >
+                        <ImageView
+                            android:id="@+id/getwaterMakericon"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/getwatermaker_select"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+
+                            />
+                        <TextView
+
+                            android:layout_below="@id/getwaterMakericon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="提取水印"
+                            android:textColor="#707070"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="5dp"
+                            android:textSize="12sp"
+                            />
+
+                    </RelativeLayout>
+
+
+
+
+                    <!--图片置乱-->
+                    <!--测试按钮-->
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:id="@+id/rl_covery"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="30dp"
+                        android:background="@drawable/bottom_button_select"
+                        android:clickable="true"
+                        >
+                        <ImageView
+                            android:id="@+id/getstartPhotoicon"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/covery_select"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            />
+                        <TextView
+
+                            android:layout_below="@id/getstartPhotoicon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="图片置乱"
+                            android:textColor="#707070"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="5dp"
+                            android:textSize="12sp"
+                            />
+
+                    </RelativeLayout>
+
+
+                    <!--置乱还原-->
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:id="@+id/rl_recovery"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@drawable/bottom_button_select"
+                        android:clickable="true"
+                        >
+                        <ImageView
+                            android:id="@+id/savePhotoicon"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/recovery_select"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            />
+                        <TextView
+                            android:layout_below="@id/savePhotoicon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="置乱还原"
+                            android:textColor="#707070"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="5dp"
+                            android:textSize="12sp"
+                            />
+
+                    </RelativeLayout>
+
+
+
+
+
+                </LinearLayout>
+                <!--添加图片-->
+                <RelativeLayout
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rl_insertPhoto"
+                    android:gravity="center"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    >
+                    <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+
+                        android:layout_marginBottom="11dp"
+                        android:src="@drawable/photo"
+                        android:layout_centerInParent="true"
+                        />
+
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </com.xiaobai.thewatermark.Utils.LeftHold>
+
+
+</RelativeLayout>
+
+
+

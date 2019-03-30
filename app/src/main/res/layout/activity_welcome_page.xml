@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activit.welcomePage"
+    android:background="@android:color/white"
+    >
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/welcomebackground"
+        android:contentDescription="@string/todo" />
+
+
+<!--    <TextView
+        android:id="@+id/appName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/tips1"
+        android:text="数字水印系统"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
+        />
+
+    <TextView
+        android:id="@+id/tips1"
+        android:textColor="@android:color/holo_red_dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+
+
+        android:text="          ——您的版权，"
+        android:layout_alignLeft="@id/appName"
+        android:layout_above="@id/tips2"
+        />
+    <TextView
+        android:id="@+id/tips2"
+        android:textColor="@android:color/holo_red_dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:text="                  由我来守护！"
+        android:layout_alignLeft="@id/appName"
+        />-->
+
+</LinearLayout>

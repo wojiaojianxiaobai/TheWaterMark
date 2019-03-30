@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+
+    android:background="@drawable/mdialog_background"
+    >
+
+    <!--标题-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="提取水印"
+        android:textColor="@android:color/black"
+        android:textSize="25sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        />
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/holo_blue_bright"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        >
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:id="@+id/tv_waterPasswordTip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="水印密码："
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:layout_marginLeft="20dp"
+            />
+
+        <EditText
+            android:id="@+id/et_water_password"
+            android:layout_marginLeft="5dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textColorHint="#666666"
+
+            />
+
+
+
+    </LinearLayout>
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <Button
+            android:id="@+id/water_bt_ok"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="提取水印"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <Button
+            android:id="@+id/water_bt_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="取消"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="10dp"
+            />
+
+
+    </LinearLayout>
+    <!--显示水印-->
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/water_photo"
+        android:layout_gravity="center_horizontal"
+        />
+
+    <Button
+        android:id="@+id/download_water"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="保存到本地"
+        android:visibility="gone"
+        />
+
+</LinearLayout>
