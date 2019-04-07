@@ -11,11 +11,13 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -32,6 +34,7 @@ import com.xiaobai.thewatermark.R;
 import com.xiaobai.thewatermark.Utils.BitmapCache;
 import com.xiaobai.thewatermark.Utils.photoListCell;
 import com.xiaobai.thewatermark.Utils.saveImage;
+import com.xiaobai.thewatermark.Utils.showPhotoByBitmap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,6 +52,8 @@ public class AlbumActivity extends AppCompatActivity implements AdapterView.OnIt
     private ListView lv;
     private List<photoListCell> show_photo_list = new ArrayList<photoListCell>();
     public ArrayList<Map<String, Object>> list= new ArrayList<>();     //存放数组列表
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,8 +102,17 @@ public class AlbumActivity extends AppCompatActivity implements AdapterView.OnIt
                         String arnoldAddr= jsonObject.getString("arnoldAddr");
                         String waterPassword =jsonObject.getString("waterPassword");
                         String arnoldPassword = jsonObject.getString("arnoldPassword");
-                        String detail = jsonObject.getString("detail");
-                        String isDelete = jsonObject.getString("isDelete");     //判断删除
+                        String detail = jsonObject.getString("detail"); //水印信息
+
+                        String[] addresses = detail.split("\n经度：");
+                        String address = addresses[0];
+
+                        String holdMessage = addresses[1];
+
+                        Log.i("TAG",address);
+
+
+                        String isDelete = jsonObject.getString("isDelete");     //判断是否删除
                         String suffix = jsonObject.getString("suffix");         //图片格式
 
                         map.put("imgId",imgId);
@@ -107,6 +121,8 @@ public class AlbumActivity extends AppCompatActivity implements AdapterView.OnIt
                         map.put("arnoldAddr",arnoldAddr);
                         map.put("waterPassword",waterPassword);
                         map.put("arnoldPassword",arnoldPassword);
+                        map.put("address",address);     //地址
+                        map.put("holdMessage",holdMessage); //隐藏信息
                         map.put("detail",detail);
                         map.put("suffix",suffix);
                         map.put("isDelete",isDelete);
@@ -196,6 +212,7 @@ public class AlbumActivity extends AppCompatActivity implements AdapterView.OnIt
 
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
+
             ViewHolder viewHolder = null;
             if (convertView == null) {
                 viewHolder = new ViewHolder();
@@ -205,6 +222,9 @@ public class AlbumActivity extends AppCompatActivity implements AdapterView.OnIt
                 viewHolder.message = (TextView) convertView.findViewById(R.id.tv_water_message);
                 viewHolder.download = (ImageView) convertView.findViewById(R.id.iv_albumDownLoad);      //下载按钮
                 viewHolder.delete = (ImageView) convertView.findViewById(R.id.iv_albumDelete);          //删除按钮
+                viewHolder.holdMessage = (TextView) convertView.findViewById(R.id.tv_holdMessage);      //隐藏信息
+
+                viewHolder.holdMessageLayout = (LinearLayout) convertView.findViewById(R.id.ll_holdMessageLayout);  //隐藏的布局
                 convertView.setTag(viewHolder);
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
@@ -223,30 +243,52 @@ public class AlbumActivity extends AppCompatActivity implements AdapterView.OnIt
             }else viewHolder.waterAddr.setImageUrl(S_waterAddr,myImageloader);
 
             viewHolder.insertPassword.setText("水印密码："+list.get(position).get("waterPassword".toString()));
-            viewHolder.message.setText(list.get(position).get("detail").toString());
+            viewHolder.message.setText(list.get(position).get("address").toString());
+
+
 
             final ViewHolder finalViewHolder = viewHolder;
             viewHolder.waterAddr.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
+                    HashMap hashMap = (HashMap) lv.getItemAtPosition(position);
+                    Log.i("TAG_hashMap",hashMap.toString());
                     Drawable drawable = finalViewHolder.waterAddr.getDrawable();
                     Bitmap bitmap = ((android.graphics.drawable.BitmapDrawable) drawable).getBitmap();
+
+
+                    new showPhotoByBitmap(AlbumActivity.this,bitmap);
                     Toast.makeText(getApplicationContext(),"显示详细图片",Toast.LENGTH_SHORT).show();
 
 
                 }
             });
+
+
+            /*点击显示详细信息*/
+            final ViewHolder finalViewHolder1 = viewHolder;
             viewHolder.insertPassword.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(getApplicationContext(),"this is insertPassword",Toast.LENGTH_SHORT).show();
+                    if (finalViewHolder1.holdMessageLayout.getVisibility() == View.VISIBLE){
+                        finalViewHolder1.holdMessageLayout.setVisibility(View.GONE);
+                    }else {
+                        finalViewHolder1.holdMessageLayout.setVisibility(View.VISIBLE);
+                        finalViewHolder1.holdMessage.setText("经度:"+list.get(position).get("holdMessage").toString());
+                    }
+
                 }
             });
             viewHolder.message.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(getApplicationContext(),"this is message",Toast.LENGTH_SHORT).show();
+                    if (finalViewHolder1.holdMessageLayout.getVisibility() == View.VISIBLE){
+                        finalViewHolder1.holdMessageLayout.setVisibility(View.GONE);
+                    }else {
+                        finalViewHolder1.holdMessageLayout.setVisibility(View.VISIBLE);
+                        finalViewHolder1.holdMessage.setText("经度:"+list.get(position).get("holdMessage").toString());
+                    }
                 }
             });
 
@@ -280,6 +322,7 @@ public class AlbumActivity extends AppCompatActivity implements AdapterView.OnIt
                 }
             });
 
+            /*删除图片按钮*/
             viewHolder.delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -341,12 +384,19 @@ public class AlbumActivity extends AppCompatActivity implements AdapterView.OnIt
 
     }
 
+
+
     final static class ViewHolder {
         NetworkImageView waterAddr;
         TextView message;
         TextView insertPassword;
         ImageView download;
         ImageView delete;
+        TextView holdMessage;
+        LinearLayout holdMessageLayout;
     }
+
+
+
 
 }

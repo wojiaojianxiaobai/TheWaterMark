@@ -174,8 +174,6 @@ public class getWaterMessageDialog{
             @Override
             public void onClick(View view) {
 
-
-
                 if (MainActivity.Latitude.equals("") || MainActivity.Longitude.equals("")){
                     tv_showGPS_x.setText("无法获取经纬度，请重试");
                 }else{
@@ -209,9 +207,9 @@ public class getWaterMessageDialog{
         bt_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (tv_showGPS_x.getText().toString() == s_testGPS) {
+                if (tv_showGPS_x.getText().toString().equals(s_testGPS)) {
                     Toast.makeText(context, "请先获得您的GPS信息", Toast.LENGTH_SHORT).show();
-                } else if (tv_showIMEI.getText().toString() == s_testIMEI) {
+                } else if (tv_showIMEI.getText().toString().equals(s_testIMEI)) {
                     Toast.makeText(context, "请先获得您的IMEI信息", Toast.LENGTH_SHORT).show();
                 } else {
 
@@ -221,7 +219,7 @@ public class getWaterMessageDialog{
                     if (InfoMessage.equals("")){
                         InfoMessage = "null";
                     }
-                    final String data = "经度：" + tv_showGPS_x.getText().toString() + "\n纬度:" + tv_showGps_y.getText().toString() + "\nIMEI:" + imei + "\nIMSI:" + imsi + "\n自定义信息:" +InfoMessage ;
+                    final String data = MainActivity.Address+"\n"+"经度：" + tv_showGPS_x.getText().toString() + "\n纬度:" + tv_showGps_y.getText().toString() + "\nIMEI:" + imei + "\nIMSI:" + imsi + "\n自定义信息:" +InfoMessage ;
                     /*单图操作*/
                     if (isSingePhoto){
                         final ProgressDialog progressDialog = new ProgressDialog(context);

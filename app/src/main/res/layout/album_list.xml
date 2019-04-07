@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Activit.AlbumActivity"
     android:orientation="vertical"
+    android:background="@drawable/album_background"
     >
 
 
@@ -13,11 +14,11 @@
 
 
     <ListView
-        android:background="@drawable/album_background"
+
         android:id="@+id/lv"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:divider="#20202020"
+        android:layout_height="fill_parent"
+        android:divider="@android:color/holo_blue_light"
         android:dividerHeight="2dp"
         >
 
