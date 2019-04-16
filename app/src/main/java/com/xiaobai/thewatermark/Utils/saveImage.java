@@ -18,6 +18,9 @@ public class saveImage{
 
 
     public saveImage(Bitmap bmp,Context context,String imageFormat) {
+        Log.i("TAG_save",bmp.toString());
+        Log.i("TAG_save",context.toString());
+        Log.i("TAG_save",imageFormat);
         File appDir = new File(Environment.getExternalStorageDirectory(), "WaterMarkPhoto");    //把照片保存到SD卡的WaterMarkPhoto目录下
         if (!appDir.exists()) {
             appDir.mkdir();
@@ -25,12 +28,13 @@ public class saveImage{
         String[] getImageFormat = imageFormat.split("image/");
         String format = getImageFormat[1];
         String fileName = System.currentTimeMillis() + "."+format;
-        Log.i("TEST_format",format);
+        Log.i("TAG_save_format",format);
 
 
         switch (format) {
             case "jpeg": {             //jpeg处理
 
+                Log.i("TAG_save","jpeg");
                 File file = new File(appDir, fileName);
                 try {
                     FileOutputStream fos = new FileOutputStream(file);
@@ -47,6 +51,7 @@ public class saveImage{
                 break;
             }
             case "png": {            //png处理
+                Log.i("TAG_save","png");
                 File file = new File(appDir, fileName);
                 try {
                     FileOutputStream fos = new FileOutputStream(file);
@@ -63,6 +68,7 @@ public class saveImage{
                 break;
             }
             case "bmp": {           //bitmap处理
+                Log.i("TAG_save","bmp");
                 if (bmp == null)
                     return;
                 // 位图大小

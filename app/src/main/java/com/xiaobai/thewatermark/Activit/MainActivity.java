@@ -329,6 +329,7 @@ public class  MainActivity extends Activity {
                         progressDialog.show();
                         Bitmap bitmap2 = ((BitmapDrawable) ((ImageView) mImageView).getDrawable()).getBitmap();    //获取图片中的uri保存至bitmap2
                         new saveImage(bitmap2,MainActivity.this,imageFormat);         //把bitmap2对应的图片保存图片至本地
+                        Log.i("TAGMain_imageFormat",imageFormat);
                         progressDialog.dismiss();
 
                         Toast.makeText(MainActivity.this, "保存图片成功", Toast.LENGTH_SHORT).show();
