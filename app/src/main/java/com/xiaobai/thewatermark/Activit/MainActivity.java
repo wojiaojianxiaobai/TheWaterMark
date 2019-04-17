@@ -441,7 +441,7 @@ public class  MainActivity extends Activity {
                         dlg.show();
 
                     }else {                         //多图模式下查看图片
-                        Toast.makeText(MainActivity.this,"多图模式下查看原图",Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this,"请在单张图片下查看原图",Toast.LENGTH_LONG).show();
                     }
 
                 } else
@@ -584,7 +584,6 @@ public class  MainActivity extends Activity {
 
                         }
                         new getWaterMessageDialog(MainActivity.this,null,IsSingePhoto,photoArrayList1, imageFormat,gridView);
-                        Toast.makeText(MainActivity.this,"多图嵌入水印模式",Toast.LENGTH_LONG).show();
                     }
                 } else
                     Toast.makeText(MainActivity.this, "请先插入图片", Toast.LENGTH_SHORT).show();
@@ -787,8 +786,6 @@ public class  MainActivity extends Activity {
                 ArrayList<String> list = data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT);
                 Log.d(TAG, "数量："+list.size());
                 if (list.size()==1){
-                    Toast.makeText(MainActivity.this,"单选模式",Toast.LENGTH_LONG).show();
-
                     String singephoto = list.get(0);
                     Log.i("TEST",singephoto);
 

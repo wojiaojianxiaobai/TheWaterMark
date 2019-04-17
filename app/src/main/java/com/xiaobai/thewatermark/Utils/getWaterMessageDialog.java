@@ -112,6 +112,7 @@ public class getWaterMessageDialog{
 
         final StringBuilder finalBuilder = null;
         final WebSocketClient webSocketClient = new WebSocketClient(uri, draft_6455) {
+
             @Override
             public void onOpen(ServerHandshake handshakedata) {
                 Log.d(TAG, "run() returned: " + "连接到服务器");
@@ -238,6 +239,7 @@ public class getWaterMessageDialog{
                         LogUtil.e("TAG",params.toString());
                         AsyncHttpClient client = new AsyncHttpClient();
                         client.setResponseTimeout(30000);
+                        client.setConnectTimeout(30000);
                         client.post(url, params, new AsyncHttpResponseHandler() {
                             @Override
                             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody) {
@@ -346,12 +348,8 @@ public class getWaterMessageDialog{
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
-
                                     webSocketClient.send(jsonObject.toString());
                                 }
-
-
-
 
 
                                 for (;RTPhoto.size()!=count;){

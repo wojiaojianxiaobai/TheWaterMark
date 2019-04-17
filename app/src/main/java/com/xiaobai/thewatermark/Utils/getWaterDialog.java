@@ -20,10 +20,12 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.xiaobai.thewatermark.Activit.MainActivity;
 import com.xiaobai.thewatermark.R;
+import com.xiaobai.thewatermark.WeChat.Image;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.extras.Base64;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -44,7 +46,11 @@ public class getWaterDialog{
         customizeDialog.setView(dialogView);
         final AlertDialog dlg = customizeDialog.create();
         dlg.setContentView(R.layout.get_water_dialog);
-        final EditText et_water_password = (EditText) dialogView.findViewById(R.id.et_water_password);
+        final EditText et_water_password = (EditText) dialogView.findViewById(R.id.et_water_password);  //水印密码输入框
+        final EditText et_photoUri = dialogView.findViewById(R.id.et_photoUri);           //图片标识输入框
+        final ImageView show_water_photo = (ImageView) dialogView.findViewById(R.id.water_photo);   //初始化显示水印图片控件
+        final ImageView showUriPhoto = dialogView.findViewById(R.id.iv_waterUri);     //初始化显示图片URI控件
+        final Button download_water = (Button) dialogView.findViewById(R.id.download_water);      //初始化保存水印图片按钮
         SharedPreferences sp = context.getSharedPreferences("loginInfo", MODE_PRIVATE);
         final String loginUserName = sp.getString("loginUserName", "未登录");
 
@@ -69,27 +75,28 @@ public class getWaterDialog{
                 String format = theImageFormat[1];
                 Log.i("TEST_getImageFormat",format);
 
-                String[] allowedContentTypes = new String[] { "image/png", "image/jpeg" };
                 String photo = "data:image/"+format+";base64," + String.valueOf(Base64.encodeToString(BitmapToBytesUtil.bitmapToBytes(bitmap), Base64.DEFAULT));
                 String uri = "http://idea.welikedian.com/copyright/image/getDctWater";
-                RequestParams params = new RequestParams();
+                final RequestParams params = new RequestParams();
                 params.put("waterPassword",s_water_password);
                 params.put("username",loginUserName);
                 params.put("base64data",photo);
                 AsyncHttpClient client = new AsyncHttpClient();
                 client.setResponseTimeout(30000);
+                client.setConnectTimeout(30000);
                 client.post(uri, params, new AsyncHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody) {
+
+
+
 
                         /*显示图片*/
                         final AlertDialog dlg = customizeDialog.create();
                         dlg.setContentView(R.layout.watchstartphoto);
                         /*显示水印隐藏框*/
-                        final ImageView show_water_photo = (ImageView) dialogView.findViewById(R.id.water_photo);
-                        dialogView.findViewById(R.id.water_photo).setVisibility(View.VISIBLE);
 
-                        Button download_water = (Button) dialogView.findViewById(R.id.download_water);
+
 
                         Log.i("TEST_statusCode", String.valueOf(statusCode));
 
@@ -101,40 +108,95 @@ public class getWaterDialog{
                             boolean response = jsonObject.getBoolean("success");
                             if (!response) {
                                 String error = jsonObject.getString("error");
-                                Log.i(TAG, "error:"+error);
-                                Log.i(TAG,error.substring(0,4));
+
+                                /*判断存在标识*/
                                 if (error.substring(0,4).equals("data")){
                                     String[] the_watermake = error.split(";base64,");     //对接收的图片数据切割
                                     String water_photo = the_watermake[1];           //获取图片部分
                                     final String photoFormat = the_watermake[0];
 
-                                    Log.i("TEST_photoFormat", photoFormat);
-                                    Log.i("TEST3", water_photo + "-----------------------------------------");             //切割base64
                                     Bitmap bitmapUri = BitmapToBytesUtil.base64ToBitmap(water_photo);
 
                                     Log.i(TAG,bitmapUri.toString());
                                     /*隐藏之前的控件*/
-                                    dialogView.findViewById(R.id.tv_waterPasswordTip).setVisibility(View.GONE);
-                                    dialogView.findViewById(R.id.et_water_password).setVisibility(View.GONE);
-                                    dialogView.findViewById(R.id.water_bt_ok).setVisibility(View.GONE);
-                                    dialogView.findViewById(R.id.water_bt_cancel).setVisibility(View.GONE);
-                                    dialogView.findViewById(R.id.water_photo).setVisibility(View.VISIBLE);
-                                    show_water_photo.setImageBitmap(bitmapUri);
+                                    dialogView.findViewById(R.id.ll_getWaterMessage).setVisibility(View.GONE);      //隐藏旧窗口
+                                    dialogView.findViewById(R.id.ll_uriWindow).setVisibility(View.VISIBLE);;        //显示标识图片窗口
+                                    showUriPhoto.setImageBitmap(bitmapUri);     //显示水印URI
 
-                                    /*显示保存图片到本地按钮*/
-                                    download_water.setVisibility(View.VISIBLE);
-                                    download_water.setOnClickListener(new View.OnClickListener() {
+                                    dialogView.findViewById(R.id.bt_retry_ok).setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
-                                            Bitmap bitmap2 = ((BitmapDrawable) ((ImageView) show_water_photo).getDrawable()).getBitmap();
-                                            new saveImage(bitmap2,context, photoFormat);         //把bitmap2对应的图片保存图片至本地
-                                            Log.i(TAG,photoFormat);
-                                            Log.i(TAG,bitmap2.toString());
-                                            Log.i(TAG,context.toString());
-                                            Toast.makeText(context, "保存图片成功", Toast.LENGTH_SHORT).show();
+
+                                            String uriGetDctWaterByID = "http://idea.welikedian.com/copyright/image/getDctWaterById";
+                                            RequestParams uriParams = new RequestParams();
+                                            uriParams.put("imageId",et_photoUri.getText().toString().trim());
+                                            uriParams.put("waterPassword",et_water_password.getText().toString().trim());
+                                            uriParams.put("username",loginUserName);
+
+                                            Log.i(TAG+"params",uriParams.toString());
+                                            AsyncHttpClient uriClient = new AsyncHttpClient();
+                                            uriClient.setResponseTimeout(30000);
+                                            uriClient.setConnectTimeout(30000);
+                                            uriClient.post(uriGetDctWaterByID, uriParams, new AsyncHttpResponseHandler() {
+                                                @Override
+                                                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+
+                                                    String StringResponseBody = new String(responseBody);
+                                                    try {
+                                                        JSONObject JSResponseBody = new JSONObject(String.valueOf(StringResponseBody));
+
+                                                        boolean success = JSResponseBody.getBoolean("success");
+                                                        if (success){
+
+                                                            JSONObject dataJsonObject = JSResponseBody.getJSONObject("data");
+                                                            String message = dataJsonObject.getString("message");
+                                                            String[] listMessage = message.split(";base64,");
+                                                            String format = listMessage[0];
+                                                            String waterPhoto = listMessage[1];
+
+                                                            Bitmap waterBitmap = BitmapToBytesUtil.base64ToBitmap(waterPhoto);
+
+                                                            dialogView.findViewById(R.id.ll_uriWindow).setVisibility(View.GONE);
+                                                            dialogView.findViewById(R.id.ll_holdShowMessage).setVisibility(View.VISIBLE);
+                                                            show_water_photo.setImageBitmap(waterBitmap);
+
+                                                            /*显示保存图片到本地按钮*/
+                                                            download_water.setOnClickListener(new View.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(View view) {
+                                                                    Bitmap bitmap2 = ((BitmapDrawable) ((ImageView) show_water_photo).getDrawable()).getBitmap();
+                                                                    new saveImage(bitmap2,context, photoFormat);         //把bitmap2对应的图片保存图片至本地
+                                                                    Toast.makeText(context, "保存图片成功", Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            });
+
+                                                        }
+
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                    Log.i(TAG+"status",statusCode+"");
+                                                    String value = new String(responseBody);        //用于判断是否成功提取水印
+                                                    LogUtil.e(TAG+"responseBody",value);
+                                                }
+
+                                                @Override
+                                                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+                                                    Toast.makeText(context,error.toString(),Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                        }
+                                    });
+
+                                    dialogView.findViewById(R.id.bt_retry_cancel).setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
                                             dlg.dismiss();
                                         }
                                     });
+
 
                                 }else {
                                     Toast.makeText(context,error,Toast.LENGTH_LONG).show();
@@ -149,18 +211,14 @@ public class getWaterDialog{
                                     String water_photo = the_watermake[1];           //获取图片部分
                                     final String photoFormat = the_watermake[0];
 
-                                    Log.i("TEST_photoFormat", photoFormat);
-                                    Log.i("TEST3", water_photo + "-----------------------------------------");             //切割base64
                                     Bitmap bm_waterphoto = BitmapToBytesUtil.base64ToBitmap(water_photo);           //转换成图片
 
                                     /*隐藏之前的控件*/
-                                    dialogView.findViewById(R.id.tv_waterPasswordTip).setVisibility(View.GONE);
-                                    dialogView.findViewById(R.id.et_water_password).setVisibility(View.GONE);
-                                    dialogView.findViewById(R.id.water_bt_ok).setVisibility(View.GONE);
-                                    dialogView.findViewById(R.id.water_bt_cancel).setVisibility(View.GONE);
+
+                                    dialogView.findViewById(R.id.ll_getWaterMessage).setVisibility(View.GONE);      //隐藏旧窗口
+                                    dialogView.findViewById(R.id.ll_holdShowMessage).setVisibility(View.VISIBLE);  //显示图片和下载按钮
                                     show_water_photo.setImageBitmap(bm_waterphoto);
                                     /*显示保存图片到本地按钮*/
-                                    download_water.setVisibility(View.VISIBLE);
                                     download_water.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
