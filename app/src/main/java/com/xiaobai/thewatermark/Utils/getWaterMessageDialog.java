@@ -236,7 +236,9 @@ public class getWaterMessageDialog{
                         params.put("base64data", orgin);
                         params.put("username", loginUserName);
                         params.put("str", data);
-                        LogUtil.e("TAG",params.toString());
+
+                        LogUtil.e("TAG",orgin);
+                        LogUtil.e("TAG",loginUserName+data);
                         AsyncHttpClient client = new AsyncHttpClient();
                         client.setResponseTimeout(30000);
                         client.setConnectTimeout(30000);
@@ -358,9 +360,12 @@ public class getWaterMessageDialog{
                                     //正在上传第RTPhoto.size张图片
                                 }
 
-                                MainActivity.imagePaths = RTPhoto;
+                                MainActivity.imagePaths.clear();
+
+                                MainActivity.waterImagePaths = RTPhoto;
 
                                 Intent intent = new Intent();
+                                // TODO: 2019/4/20  检测waterImagePaths长度，在插入图片时提醒清除
                                 intent.putExtra(EXTRA_RESULT, RTPhoto);
                                 context.setResult(RESULT_OK, intent);
 

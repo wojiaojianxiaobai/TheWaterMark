@@ -27,13 +27,6 @@
         android:layout_height="1dp"
         android:background="@android:color/holo_blue_bright"
         />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        >
-    </LinearLayout>
-
 
 
     <!--提取水印隐藏框-->
@@ -44,6 +37,101 @@
         android:id="@+id/ll_getWaterMessage"
         >
 
+        <!--请输入未被破坏的标识码-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="请输入其中一张图中的标识码："
+            android:textColor="@android:color/black"
+            android:layout_marginTop="20dp"
+            android:textSize="20sp"
+            />
+        <!--存放四个标识码-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:orientation="vertical"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                >
+                <ImageView
+                    android:id="@+id/iv_imageOne"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:background="@color/black_40"
+                    android:layout_margin="5dp"
+                    android:scaleType="fitCenter"
+                    />
+                <ImageView
+                    android:id="@+id/iv_imageTwo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/black_40"
+                    android:layout_weight="1"
+                    android:layout_margin="5dp"
+                    android:scaleType="fitCenter"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                >
+                <ImageView
+                    android:id="@+id/iv_imageThree"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:background="@color/black_40"
+                    android:layout_margin="5dp"
+                    android:scaleType="fitCenter"
+                    />
+                <ImageView
+                    android:id="@+id/iv_imageFour"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:background="@color/black_40"
+                    android:layout_margin="5dp"
+                    android:scaleType="fitCenter"
+                    />
+            </LinearLayout>
+
+            <!--图片标识码-->
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="    标识码："
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:layout_marginLeft="20dp"
+                    />
+                <EditText
+                    android:id="@+id/et_waterUri"
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="#666666"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--水印密码输入框-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -60,7 +148,6 @@
                 android:gravity="center"
                 android:layout_marginLeft="20dp"
                 />
-
             <EditText
                 android:id="@+id/et_water_password"
                 android:layout_marginLeft="5dp"
@@ -68,17 +155,10 @@
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
                 android:textColorHint="#666666"
-
                 />
-
-
-
         </LinearLayout>
 
-
-
-
-
+        <!--提取水印和取消按钮-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -104,8 +184,6 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="10dp"
                 />
-
-
         </LinearLayout>
     </LinearLayout>
 

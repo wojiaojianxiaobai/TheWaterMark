@@ -1,5 +1,6 @@
 package com.xiaobai.thewatermark.Activit;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -61,6 +62,10 @@ public class LoginActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
+                progressDialog.setMessage("正在插入水印...");
+                progressDialog.setCancelable(true);
+                progressDialog.show();
 
                 userName=et_user_name.getText().toString().trim();
                 psw=et_psw.getText().toString().trim();
@@ -89,8 +94,9 @@ public class LoginActivity extends AppCompatActivity {
                                 try {
                                     JSONObject response = new JSONObject(jason);
                                     boolean value = response.getBoolean("success");
-                                    if (value==true){
+                                    if (value){
                                         Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                                        progressDialog.dismiss();
                                         //保存登录状态
                                         saveLoginStatus(true, userName);
                                         Intent intent=new Intent(LoginActivity.this,MainActivity.class);

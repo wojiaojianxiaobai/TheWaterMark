@@ -74,7 +74,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.NoActionBar">
+        android:theme="@style/Theme.AppCompat.NoActionBar"
+        tools:ignore="GoogleAppIndexingWarning">
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
@@ -86,8 +87,8 @@
             android:process=":remote" />
 
 
-        <service android:name="com.amap.api.location.APSService"></service><!--高德定位-->
-        <meta-data android:name="com.amap.api.v2.apikey" android:value="e072907cb4b975c3494ec28b3cafcd64"/>
+        <service android:name="com.amap.api.location.APSService"/><!--高德定位-->
+        <meta-data android:name="com.amap.api.v2.apikey" android:value="6ae9deb653a9b3959f1e3bbfe55aeb0d"/>
 
 
 

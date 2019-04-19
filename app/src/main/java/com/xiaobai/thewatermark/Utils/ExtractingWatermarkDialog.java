@@ -30,12 +30,12 @@ import cz.msebera.android.httpclient.extras.Base64;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class getWaterDialog{
+public class ExtractingWatermarkDialog {
 
     private Bitmap bitmap;
 
 
-    public getWaterDialog(final Context context, Bitmap bitmap1, final ImageView mImageView, final String getImageFormat) {
+    public ExtractingWatermarkDialog(final Context context, Bitmap bitmap1, final ImageView mImageView, final String getImageFormat) {
 
         final String TAG = "TAG" + context;
         this.bitmap = bitmap1;

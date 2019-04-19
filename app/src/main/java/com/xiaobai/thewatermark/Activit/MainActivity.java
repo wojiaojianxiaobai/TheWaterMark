@@ -46,9 +46,8 @@ import com.xiaobai.thewatermark.R;
 import com.xiaobai.thewatermark.Utils.BitmapToBytesUtil;
 import com.xiaobai.thewatermark.Utils.LeftHold;
 import com.xiaobai.thewatermark.Utils.Location;
-import com.xiaobai.thewatermark.Utils.getWaterDialog;
+import com.xiaobai.thewatermark.Utils.ExtractingWatermarkDialog;
 import com.xiaobai.thewatermark.Utils.getWaterMessageDialog;
-import com.xiaobai.thewatermark.Utils.recovery;
 import com.xiaobai.thewatermark.Utils.saveImage;
 import com.xiaobai.thewatermark.WeChat.PhotoPickerActivity;
 import com.xiaobai.thewatermark.WeChat.PhotoPreviewActivity;
@@ -70,6 +69,11 @@ public class  MainActivity extends Activity {
     private static final int REQUEST_PREVIEW_CODE = 20;         //相册处理结果
 
     public static ArrayList<String> imagePaths = new ArrayList<>();   //存放选中的相册
+    public static ArrayList<String> waterImagePaths = new ArrayList<>();    //存放嵌入水印后的图片
+
+    /*检测类*/
+    public static boolean thePhotoIsInsert=false;   //用于检测是否插入图片
+    public static boolean IsSingePhoto = true;       //检测是单图片还是多图片
 
     private GridView gridView;      //图片窗口
     private MainActivity.GridAdapter gridAdapter;    //GridView适配器
@@ -100,9 +104,7 @@ public class  MainActivity extends Activity {
     private TextView myInfoName;    //记录用户名
 
 
-    /*检测类*/
-    boolean thePhotoIsInsert=false;   //用于检测是否插入图片
-    boolean IsSingePhoto = true;       //检测是单图片还是多图片
+
 
 
     private LeftHold mLeftMenu; //左侧隐藏菜单栏
@@ -138,8 +140,8 @@ public class  MainActivity extends Activity {
 
 
 
-        mImageView = findViewById(R.id.imageView);          //单图片显示
 
+        mImageView = findViewById(R.id.imageView);          //单图片显示
 
         /*显示加载的本地图片*/
         gridView = (GridView) findViewById(R.id.gridView);
@@ -274,7 +276,7 @@ public class  MainActivity extends Activity {
             public void onClick(View view) {
 
                 if (thePhotoIsInsert){
-                    new getWaterDialog(MainActivity.this,bitmap1,mImageView,imageFormat);
+                    new ExtractingWatermarkDialog(MainActivity.this,bitmap1,mImageView,imageFormat);
                 }else Toast.makeText(MainActivity.this,"请先插入图片",Toast.LENGTH_LONG).show();
 
             }
@@ -283,18 +285,16 @@ public class  MainActivity extends Activity {
 
 
         /*置乱按钮*/
-        /*------------------------------------测试按钮-----------------------*/
         rl_covery = (RelativeLayout) findViewById(R.id.rl_covery);
         rl_covery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                getPositioning();
+                Toast.makeText(MainActivity.this,"此功能已经停用",Toast.LENGTH_SHORT).show();
 
 
             }
         });
-
 
         /*还原图片按钮*/
         rl_recovery = (RelativeLayout) findViewById(R.id.rl_recovery);
@@ -302,10 +302,10 @@ public class  MainActivity extends Activity {
             @Override
             public void onClick(View view) {
 
-                if (thePhotoIsInsert){
+/*                if (thePhotoIsInsert){
                     new recovery(mImageView,MainActivity.this,loginUserName);
-
-                }else Toast.makeText(MainActivity.this,"请先插入图片",Toast.LENGTH_LONG).show();
+                }else Toast.makeText(MainActivity.this,"请先插入图片",Toast.LENGTH_LONG).show();*/
+            Toast.makeText(MainActivity.this,"此功能已经停用",Toast.LENGTH_SHORT).show();
 
             }
         });

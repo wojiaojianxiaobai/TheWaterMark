@@ -3,6 +3,7 @@ package com.xiaobai.thewatermark.Activit;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +14,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.xiaobai.thewatermark.R;
+import com.xiaobai.thewatermark.Utils.MD5Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -73,7 +75,10 @@ public class RemakePassword extends AppCompatActivity {
                 String s_password = et_password.getText().toString().trim();
                 String s_newPsw_again = et_newPsw_again.getText().toString().trim();
 
-                if (s_newPsw!=s_newPsw_again){
+                String md5Password= MD5Utils.md5(s_password);
+                String md5NewPsw = MD5Utils.md5(s_newPsw);
+
+                if (!s_newPsw.equals(s_newPsw_again)){
                     Toast.makeText(RemakePassword.this,"输入的两次密码不一致",Toast.LENGTH_SHORT).show();
                 }else {
 
@@ -81,8 +86,8 @@ public class RemakePassword extends AppCompatActivity {
                     String url = "http://47.106.158.244/copyright/user/updatePwd";
                     RequestParams params = new RequestParams();
                     params.put("username",loginUserName);
-                    params.put("oldPassword",s_password);
-                    params.put("newPassword",s_newPsw);
+                    params.put("oldPassword",md5Password);
+                    params.put("newPassword",md5NewPsw);
                     AsyncHttpClient client= new AsyncHttpClient();
                     client.post(url, params, new AsyncHttpResponseHandler() {
                         @Override
@@ -93,10 +98,10 @@ public class RemakePassword extends AppCompatActivity {
                                 try {
                                     JSONObject response = new JSONObject(jason);
                                     boolean value = response.getBoolean("success");
-                                    if (value==true){
+                                    if (value){
                                         Toast.makeText(RemakePassword.this,"修改密码成功",Toast.LENGTH_SHORT).show();
+                                        RemakePassword.this.finish();
                                     }else {
-
                                         String error = response.getString("error");
                                         Toast.makeText(RemakePassword.this,""+error,Toast.LENGTH_SHORT).show();
 
@@ -112,6 +117,7 @@ public class RemakePassword extends AppCompatActivity {
                         @Override
                         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 
+                            Log.i("TAG_repasswordStatus", String.valueOf(statusCode));
                             Toast.makeText(RemakePassword.this,"连接服务器失败",Toast.LENGTH_SHORT).show();
                         }
                     });

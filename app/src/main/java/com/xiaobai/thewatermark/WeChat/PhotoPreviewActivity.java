@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.xiaobai.thewatermark.Activit.MainActivity;
 import com.xiaobai.thewatermark.R;
 import com.xiaobai.thewatermark.WeChat.widget.ViewPagerFixed;
 
@@ -131,6 +132,9 @@ public class PhotoPreviewActivity extends AppCompatActivity implements PhotoPage
                                 dialogInterface.dismiss();
                                 paths.remove(index);
                                 onBackPressed();
+                                MainActivity.thePhotoIsInsert = false;
+
+
                             }
                         })
                         .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
