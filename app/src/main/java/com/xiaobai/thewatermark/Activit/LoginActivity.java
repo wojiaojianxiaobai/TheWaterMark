@@ -1,6 +1,7 @@
 package com.xiaobai.thewatermark.Activit;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -65,7 +66,10 @@ public class LoginActivity extends AppCompatActivity {
                 final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
                 progressDialog.setMessage("正在登陆...");
                 progressDialog.setCancelable(true);
+
+
                 progressDialog.show();
+
 
                 userName=et_user_name.getText().toString().trim();
                 psw=et_psw.getText().toString().trim();
@@ -85,7 +89,16 @@ public class LoginActivity extends AppCompatActivity {
                     RequestParams params = new RequestParams();
                     params.put("number",userName);
                     params.put("password",md5Psw);
-                    AsyncHttpClient client = new AsyncHttpClient();
+                    final AsyncHttpClient client = new AsyncHttpClient();
+
+                    progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialogInterface) {
+                            client.cancelAllRequests(true);
+                            Toast.makeText(LoginActivity.this,"取消登陆",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
                     client.post(url, params, new AsyncHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -124,7 +137,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
+                            Toast.makeText(LoginActivity.this,error+"",Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -133,6 +146,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
     /**
      *从SharedPreferences中根据用户名读取密码
      */

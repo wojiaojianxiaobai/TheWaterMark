@@ -50,6 +50,7 @@ public class ExtractingWatermarkDialog {
         dlg.setContentView(R.layout.get_water_dialog);
         final EditText et_water_password = (EditText) dialogView.findViewById(R.id.et_water_password);  //水印密码输入框
         final EditText et_photoUri = dialogView.findViewById(R.id.et_waterUri);           //图片标识输入框
+        et_photoUri.setTransformationMethod(new TransFromaToA(true));
 
         /*四张标识图片框*/
         final ImageView imageViewOne = dialogView.findViewById(R.id.iv_imageOne);
@@ -65,11 +66,7 @@ public class ExtractingWatermarkDialog {
 
 
 
-        /*获取四张图片标识*/
-        final ProgressDialog UriProgressDialog = new ProgressDialog(context);
-        UriProgressDialog.setMessage("正在获取标识...");
-        UriProgressDialog.setCancelable(true);
-        UriProgressDialog.show();
+
         AsyncHttpClient UriClient = new AsyncHttpClient();
         RequestParams photoParams = new RequestParams();
         bitmap = ((BitmapDrawable)mImageView.getDrawable()).getBitmap();
@@ -164,6 +161,7 @@ public class ExtractingWatermarkDialog {
                                 dialogView.findViewById(R.id.ll_getWaterMessage).setVisibility(View.GONE);      //隐藏旧窗口
                                 dialogView.findViewById(R.id.ll_holdShowMessage).setVisibility(View.VISIBLE);   //显示新窗口
                                 show_water_photo.setImageBitmap(waterMarkPhoto);
+                                progressDialog.dismiss();
 
 
                                 download_water.setOnClickListener(new View.OnClickListener() {
@@ -184,12 +182,15 @@ public class ExtractingWatermarkDialog {
                             e.printStackTrace();
                         }
                         Log.i("TAG_response",response);
+                        progressDialog.dismiss();
 
 
                     }
 
                     @Override
                     public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+
+                        progressDialog.dismiss();
                         Toast.makeText(context,error.toString(),Toast.LENGTH_LONG).show();
 
                         Log.i("TAG",error.toString());

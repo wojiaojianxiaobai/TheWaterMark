@@ -5,11 +5,13 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Looper;
 import android.support.annotation.RequiresApi;
@@ -29,6 +31,7 @@ import android.widget.Toast;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.xiaobai.thewatermark.Activit.LoginActivity;
 import com.xiaobai.thewatermark.Activit.MainActivity;
 import com.xiaobai.thewatermark.R;
 import com.xiaobai.thewatermark.WeChat.CreatTemporaryPhoto;
@@ -39,6 +42,7 @@ import org.java_websocket.handshake.ServerHandshake;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,6 +52,7 @@ import cz.msebera.android.httpclient.extras.Base64;
 import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 import static android.content.Context.MODE_PRIVATE;
+import static com.xiaobai.thewatermark.Activit.MainActivity.imagePaths;
 import static com.xiaobai.thewatermark.WeChat.PhotoPreviewActivity.EXTRA_RESULT;
 import static org.java_websocket.WebSocket.READYSTATE.NOT_YET_CONNECTED;
 
@@ -65,6 +70,8 @@ public class getWaterMessageDialog{
         customizeDialog.setView(dialogView);
         final AlertDialog dlg = customizeDialog.create();
         dlg.setContentView(R.layout.mdialog);
+
+        dlg.show();
 
         if(photoArrayList1!=null){
             count = photoArrayList1.size();
@@ -134,7 +141,7 @@ public class getWaterMessageDialog{
                         RTPhoto.add(photoPath);
                     }else {
 
-                        RTPhoto.add(MainActivity.imagePaths.get(RTPhoto.size()));
+                        RTPhoto.add(imagePaths.get(RTPhoto.size()));
                         Log.i("error","第"+RTPhoto.size()+"张图片不能重复嵌入水印");
                         builder.append("第"+RTPhoto.size()+"张图片不能重复嵌入水印\n");
 
@@ -233,7 +240,14 @@ public class getWaterMessageDialog{
 
                         LogUtil.e("TAG",orgin);
                         LogUtil.e("TAG",loginUserName+data);
-                        AsyncHttpClient client = new AsyncHttpClient();
+                        final AsyncHttpClient client = new AsyncHttpClient();
+                        progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                            @Override
+                            public void onCancel(DialogInterface dialogInterface) {
+                                client.cancelAllRequests(true);
+                                Toast.makeText(context,"取消嵌入水印",Toast.LENGTH_SHORT).show();
+                            }
+                        });
                         client.setResponseTimeout(30000);
                         client.setConnectTimeout(30000);
                         client.post(url, params, new AsyncHttpResponseHandler() {
@@ -320,6 +334,14 @@ public class getWaterMessageDialog{
 /*                        dialog.setTitle("提示");*/
                         dialog.setMax(count);
                         dialog.setMessage("正在传输图片");
+
+                        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                            @Override
+                            public void onCancel(DialogInterface dialogInterface) {
+/*                                webSocketClient.reconnect();
+                                Toast.makeText(context,"取消嵌入水印",Toast.LENGTH_SHORT).show();*/
+                            }
+                        });
                         dialog.show();
 
                         new Thread(new Runnable() {
@@ -354,23 +376,20 @@ public class getWaterMessageDialog{
                                     //正在上传第RTPhoto.size张图片
                                 }
 
-                                MainActivity.imagePaths.clear();
+                                imagePaths = RTPhoto;
 
-                                MainActivity.waterImagePaths = RTPhoto;
+/*                                MainActivity.waterImagePaths = RTPhoto;*/
 
                                 Intent intent = new Intent();
-                                // TODO: 2019/4/20  检测waterImagePaths长度，在插入图片时提醒清除
                                 intent.putExtra(EXTRA_RESULT, RTPhoto);
                                 context.setResult(RESULT_OK, intent);
-
-
-                                Log.i("imagePaths", String.valueOf(MainActivity.imagePaths));
+                                Log.i("imagePaths", String.valueOf(imagePaths));
                                 dlg.dismiss();
-
-                                LogUtil.e("TAG",maps.toString());
-                                LogUtil.e("TAG","显示图片到gridview");
-
                                 dialog.dismiss();
+
+                                for (int i = 0;i<imagePaths.size();i++){
+                                    context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(new File(imagePaths.get(i)))));
+                                }
 
                                 Looper.prepare();
                                 Toast.makeText(context,"嵌入水印完成",Toast.LENGTH_LONG).show();
@@ -383,10 +402,6 @@ public class getWaterMessageDialog{
                                 show_error_dlg.setContentView(R.layout.photo_is_insert_water);
                                 final TextView tv_show_photo_error = dialogShowPhotoErrorView.findViewById(R.id.tv_show_photo_error);
                                 tv_show_photo_error.setText(builder);
-
-
-
-                                Log.i("finalBuilder",builder.toString());
 
                                 dialogShowPhotoErrorView.findViewById(R.id.bt_ok).setOnClickListener(new View.OnClickListener() {
                                     @Override
@@ -428,7 +443,7 @@ public class getWaterMessageDialog{
                 dlg.dismiss();
             }
         });
-        dlg.show();
+/*        dlg.show();*/
     }
 
 

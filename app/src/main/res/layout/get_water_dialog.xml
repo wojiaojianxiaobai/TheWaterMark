@@ -127,6 +127,9 @@
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/black"
                     android:textColorHint="#666666"
+                    android:hint="请输入8位标识"
+                    android:maxLines="1"
+                    android:textSize="20sp"
                     />
             </LinearLayout>
         </LinearLayout>

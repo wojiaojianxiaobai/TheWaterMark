@@ -133,8 +133,6 @@ public class PhotoPreviewActivity extends AppCompatActivity implements PhotoPage
                                 paths.remove(index);
                                 onBackPressed();
                                 MainActivity.thePhotoIsInsert = false;
-
-
                             }
                         })
                         .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

@@ -319,8 +319,6 @@ public class  MainActivity extends Activity {
             public void onClick(View view) {
 
                 if (thePhotoIsInsert) {
-
-
                     if (IsSingePhoto){
 
                         ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
@@ -331,17 +329,14 @@ public class  MainActivity extends Activity {
                         new saveImage(bitmap2,MainActivity.this,imageFormat);         //把bitmap2对应的图片保存图片至本地
                         Log.i("TAGMain_imageFormat",imageFormat);
                         progressDialog.dismiss();
-
                         Toast.makeText(MainActivity.this, "保存图片成功", Toast.LENGTH_SHORT).show();
-
                     }else {
 
-
-                        for (int i = 0;i<imagePaths.size();i++){
-
+                        Toast.makeText(MainActivity.this,"多图下已自动保存图片",Toast.LENGTH_SHORT).show();
+/*                        for (int i = 0;i<imagePaths.size();i++){
                             sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(new File(imagePaths.get(i)))));
                         }
-                        Toast.makeText(MainActivity.this,"保存"+imagePaths.size()+"张图片",Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this,"保存"+imagePaths.size()+"张图片",Toast.LENGTH_LONG).show();*/
 
                     }
 
@@ -361,6 +356,7 @@ public class  MainActivity extends Activity {
         rl_insertPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
 
                 Log.i("TAG","开始定位");
                 requestLocation();
