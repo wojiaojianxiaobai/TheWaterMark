@@ -560,7 +560,7 @@ public class  MainActivity extends Activity {
             public void onClick(View view) {
                 if (thePhotoIsInsert) {
                     if (IsSingePhoto){                  //单图操作
-                        new getWaterMessageDialog(MainActivity.this,mImageView,IsSingePhoto, null,imageFormat, gridView);
+                        new getWaterMessageDialog(MainActivity.this,mImageView,IsSingePhoto, null,imageFormat);
                     }else { //多图操作
                         ArrayList<String> photoArrayList1 = new ArrayList<String>();        //存储图片转化Base64数组
 
@@ -576,14 +576,10 @@ public class  MainActivity extends Activity {
                             BitmapFactory.decodeFile(photoPaths, options);//加载sd卡的图片
                             options.inJustDecodeBounds = false;
                             imageFormat = options.outMimeType;              //读取图片格式到imageFormat
-                            String[] foramtList = imageFormat.split("image/");
-                            String format = foramtList[1];
-                            Log.i("TEST_imageFormat",imageFormat);
-
                             photoArrayList1.add("data:"+imageFormat+";base64,"+base64Arrays);
 
                         }
-                        new getWaterMessageDialog(MainActivity.this,null,IsSingePhoto,photoArrayList1, imageFormat,gridView);
+                        new getWaterMessageDialog(MainActivity.this,null,IsSingePhoto,photoArrayList1, imageFormat);
                     }
                 } else
                     Toast.makeText(MainActivity.this, "请先插入图片", Toast.LENGTH_SHORT).show();
@@ -601,17 +597,7 @@ public class  MainActivity extends Activity {
         getPositioning();
         mLocationOption.setInterval(2000);
         mLocationClient.startLocation();
-/*        mLocationClient.start();//调用start方法开始定位*/
     }
-
-/*    private void initLocation() {
-        LocationClientOption option = new LocationClientOption();//创建一个LocationClientOption对象
-        option.setScanSpan(5000);//定位的时间间隔
-
-
-        mLocationClient.setLocOption(option);
-    }*/
-
 
 
     //    高德定位回调

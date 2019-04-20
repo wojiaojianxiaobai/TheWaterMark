@@ -56,10 +56,9 @@ public class getWaterMessageDialog{
 
 
     private int count ;
-    private MainActivity.GridAdapter gridAdapter1 ;    //GridView适配器
     /*获取插入水印信息界面 */
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public   getWaterMessageDialog(final Activity context, final ImageView imageView, final boolean isSingePhoto, final ArrayList<String> photoArrayList1, final String imageFormat, final GridView gridView) {
+    public   getWaterMessageDialog(final Activity context, final ImageView imageView, final boolean isSingePhoto, final ArrayList<String> photoArrayList1, final String imageFormat) {
         final AlertDialog.Builder customizeDialog = new AlertDialog.Builder(context);
         final View dialogView = LayoutInflater.from(context).inflate(R.layout.mdialog, null);  //自定义Diglog
         customizeDialog.setCancelable(true);
@@ -71,7 +70,6 @@ public class getWaterMessageDialog{
             count = photoArrayList1.size();
 
         }
-
 
         final ArrayList<HashMap<String,Object>> maps = new ArrayList<>();         //数据源
         final ArrayList<String> RTPhoto = new ArrayList<>();
@@ -86,7 +84,6 @@ public class getWaterMessageDialog{
 
         final String s_testGPS = tv_showGPS_x.getText().toString();     //用于检测是否获取了GPS信息
         final String s_testIMEI = tv_showIMEI.getText().toString();           //用于检测是否获取了IMEI信息
-        final String s_my_message = et_show_my_message.getText().toString();    //获取自定义信息
 
         TelephonyManager telManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 
@@ -108,9 +105,6 @@ public class getWaterMessageDialog{
         Draft_6455 draft_6455 = new Draft_6455();
         URI uri = URI.create("ws://47.106.158.244/copyright/batchAddDctWater");
 
-        final String[] photoPaths;    //存放图片集合
-
-        final StringBuilder finalBuilder = null;
         final WebSocketClient webSocketClient = new WebSocketClient(uri, draft_6455) {
 
             @Override
@@ -308,7 +302,7 @@ public class getWaterMessageDialog{
 
                             @Override
                             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                                Toast.makeText(context, "服务器请求失败", Toast.LENGTH_LONG).show();
+                                Toast.makeText(context, error+"", Toast.LENGTH_LONG).show();
                                 Log.i("test------------------", String.valueOf(statusCode));
                             }
                         });

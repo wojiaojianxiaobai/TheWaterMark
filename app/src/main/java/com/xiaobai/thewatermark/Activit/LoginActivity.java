@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
-                progressDialog.setMessage("正在插入水印...");
+                progressDialog.setMessage("正在登陆...");
                 progressDialog.setCancelable(true);
                 progressDialog.show();
 
@@ -96,7 +96,8 @@ public class LoginActivity extends AppCompatActivity {
                                     boolean value = response.getBoolean("success");
                                     if (value){
                                         Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                                        progressDialog.dismiss();
+/*                                        progressDialog.show();*/
+/*                                        progressDialog.dismiss();*/
                                         //保存登录状态
                                         saveLoginStatus(true, userName);
                                         Intent intent=new Intent(LoginActivity.this,MainActivity.class);
@@ -111,7 +112,6 @@ public class LoginActivity extends AppCompatActivity {
                                         Toast.makeText(LoginActivity.this, "登陆失败，"+error, Toast.LENGTH_LONG).show();
                                         Log.i("username",userName);
                                         Log.i("password",md5Psw);
-
                                     }
 
 
